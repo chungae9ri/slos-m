@@ -1,0 +1,34 @@
+[package]
+name = "slos-m"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name"]
+description = "Secure Lightweight OS for Cortex-M33"
+
+[dependencies]
+# 1. The "CMSIS-CORE" Equivalent: Low-level CPU access
+cortex-m = "0.7.7"
+
+# 2. The "CMSIS-RT" Equivalent: Startup code & Reset Vector
+cortex-m-rt = "0.7.3"
+
+# 3. The "CMSIS-SVD" Equivalent: Peripheral Access Crate (PAC)
+# This provides all the registers for the LPC55S69 Core 0
+lpc55-pac = "0.5.0"
+
+# 4. The Hardware Abstraction Layer (HAL)
+# Higher-level drivers for GPIO, UART, Clocks, etc.
+lpc55-hal = "0.4.1"
+
+# 5. Panic Handling (Crucial for an OS)
+# 'panic-halt' simply loops the CPU on a crash. 
+# In later stages, you'll write your own 'slos-panic' handler.
+panic-halt = "0.2.0"
+
+# 6. Embedded Trait Definitions (The Rust 'Contract')
+embedded-hal = "1.0.0"
+
+[profile.release]
+codegen-units = 1 # Better optimizations
+debug = true      # Keep debug symbols for your probe-rs debugger
+lto = true        # Link-Time Optimization for smallest binary size
